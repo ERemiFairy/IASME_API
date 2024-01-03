@@ -1,5 +1,5 @@
 <?php
-include('IASME_APIInputForm.html');
+include('index.html');
 
 
 //echo print_r($_POST,true);
