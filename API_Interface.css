@@ -1,0 +1,290 @@
+h1{
+    color:rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    overflow:hidden;
+    padding-right: 7%;
+    margin-top:0px;
+    font-variant: small-caps;
+    text-align:left;
+    padding: 0px;
+    margin-bottom:0px;
+    width:100%;
+    font-size: 7vh;
+    padding-bottom:0px;
+}
+h2{
+    color:rgb(255, 255, 255);
+    background-color: rgb(46 111 46);;
+    margin-top:0px;
+    text-align:center;
+    padding: 1%;
+    width:100%;
+    font-weight: lighter;
+    letter-spacing: 0.25vh;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-variant-caps: normal;
+    font-size: 2.5vh;
+}
+body{
+    background-color: rgb(255, 255, 255);
+    margin: 0px;
+    padding:0px;
+    /*background-image: url('magnus-engo-W4lcqyH9r8c-unsplash.jpg');*/
+}
+.inputs{
+    padding: 1%;
+    justify-content: center;
+    font-size: 3vh;
+    border-color: black black black rgb(233, 211, 40);
+    border-style:none none none solid;
+    border-width:1px 1px 1px 7px;
+    border-radius: 0px 5px 5px 0px;
+    min-height:5vh;
+    margin: 0px auto 2px auto;
+    background: rgb(227, 227, 227);
+    width: 90%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    
+}
+.options{
+    border-radius: 0px;
+    padding-top: 15px;
+    margin: auto;
+    margin-bottom: 3%;
+    width:60%;
+    height:90vh;
+    padding-bottom: 1.5vh;
+    box-shadow: 0.2vh 1vh 2vh 0.3vh lightgray;
+    flex: auto;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    font-size: medium;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgba(255, 255, 255, 0.767);
+    height: fit-content;
+    outline:0px black solid;
+}
+input[type=text] {
+    min-width:70%;
+    font-size: 80%;
+    width:auto;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: grey;
+    padding:5px 0px 5px 5px;
+    /*box-shadow: 3px 3px rgb(87, 87, 87);*/
+    margin:1%;
+}
+select {
+    min-width: 50%;
+    width:auto;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: grey;
+    border-width:2px;
+    font-size: 80%;
+    padding:1%;
+    cursor:pointer;
+    /*box-shadow: 3px 3px rgb(87, 87, 87);*/
+}
+button {
+    margin-top:2%;
+    margin-bottom: 2%;
+    min-width: 35%;
+    width:auto;
+    background: rgb(46 111 46);
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    color: white;
+    border-color: rgb(46 111 46);
+    padding:1%;
+    padding-left:3%;
+    padding-right: 3%;
+    box-shadow: 3px 3px rgb(123, 123, 123);
+    font-size:90%;
+    white-space:nowrap;
+    cursor: pointer;
+}
+button:active {
+    background: rgb(146, 199, 146);
+    border-color: rgb(46 111 46);
+    box-shadow:0.2vh 0.2vh 0vh rgb(123, 123, 123);
+}
+input[type=submit] {
+    width:30%;
+    background: rgb(46 111 46);
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: rgb(46 111 46);
+    padding:5px 0px 5px 0px;
+    box-shadow: 3px 3px rgb(123, 123, 123);
+    font-size:2.5vh;
+    color:white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor:pointer;
+    margin-bottom: 0.5vh;
+}
+input[type=submit]:active {
+    background: rgb(146, 199, 146);
+    border-color: rgb(46 111 46);
+    box-shadow:0.2vh 0.2vh 0vh rgb(123, 123, 123);
+}
+.radio input[type=radio] {
+    position: static;
+    opacity: 0;
+}
+#OrgSize label  {
+    font-size:80%;
+    flex: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:2%;
+    white-space: nowrap;
+    margin:1% 0 2% 0;   
+    height: 100%;
+    min-width: 15%;
+    width: auto;
+    border-radius: 30px;
+}
+#OrgSize input[type=radio]:checked + label {
+    background-color: rgb(146, 199, 146);
+    border-color: rgb(46 111 46);
+    box-shadow:0.2vh 0.2vh 0vh rgb(123, 123, 123);
+}
+#Ref_Live label {
+    font-size:90%;
+    flex: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding:1%;
+    margin:2% 0 0.5% 0;
+    height: 2%;
+    min-width: 70%;
+    width:auto;
+    border-radius: 25px;
+    /*
+    margin-bottom: 1%;
+    margin-top: 1%;*/
+}
+#Ref_Live input[type=radio]:checked + label {
+    background-color: rgb(146, 199, 146);
+    border-color: rgb(46 111 46);
+    box-shadow:0.2vh 0.2vh 0vh rgb(123, 123, 123);
+}
+#Ref_Live input[type=radio] {
+    opacity:0;
+    height: 1;
+    width:1;
+}
+.radio label {
+    display: inline-block;
+    align-self: center;
+    border-color: rgb(46 111 46);
+    border-radius: 5px;
+    padding:3%;
+    width:20%;
+    box-shadow: 3px 3px rgb(123, 123, 123);
+    border-style: solid;
+    color: white;
+    margin:auto;
+    width:70%;
+    background: rgb(46 111 46);
+}
+#outcome label {
+    /*width:50%;
+    margin-bottom: 10px;*/
+    font-size:85%;
+    width:60%;
+    flex: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding:1%;
+    border-radius: 20px;
+    margin:1% 0 2% 0;
+}
+#outcome input[type=radio]:checked + label {
+    background-color: rgb(146, 199, 146);
+    border-color: rgb(46 111 46);
+    box-shadow:0.2vh 0.2vh 0vh rgb(123, 123, 123);
+
+}
+#titleValid_in {
+    margin-left: 12px;
+}
+#EmailValid_in {
+    margin-left: 3px;
+}
+#results {
+    font-size: xx-large;
+    font-weight: bold;
+    color:rgb(243, 243, 243);
+    background:rgb(46 111 46);
+    padding-bottom: 1%;
+    border-radius: 10px 10px 0px 0px;
+    margin-bottom: 0;
+    justify-content: center;
+    /*border-color: black;*/
+}
+#response {
+    border-radius: 0px 0px 10px 10px;
+    justify-content: center;
+}
+.Name {
+    font-size: 3vh;
+    font-weight: bold;
+    color:rgb(255, 255, 255);
+    background:rgb(46 111 46);
+    padding-bottom: 1%;
+    border-radius: 5px 5px 0 0;
+    padding-top: 1%;
+    outline: black;
+    outline-width: 1px;
+    outline-style: solid;
+}
+.resultBox{
+    padding-bottom: 1%;
+    border-color: black;
+    border-style:solid;
+    border-width:1px;
+    border-radius: 5px;
+    margin: 2% auto 2% auto;
+    background: white;
+    width:auto;
+    width: 90%;
+    flex: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.Q_ID{
+    font-size: 2.2vh;
+}
+.Q_desc{
+    margin:0 2% 0 2%;
+    font-size: 90%;
+}
+.standard_ID{
+    padding:2%;
+    font-size:120%;
+    flex: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:2%;
+    overflow-wrap: break-word;
+}
+#IASMEimage{
+    height: 12vh;
+}
+#password{
+    font-size: 100%;
+    margin:2%;
+}
+#username{
+    font-size: 100%;
+    margin:2%;
+}

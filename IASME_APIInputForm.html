@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <title>IASME API INTERFACE</title>
+            <!--<base href="http://127.0.0.1:5500/InputForm.html" target="_blank">-->
+            <link rel="stylesheet" href="API_Interface.css">   
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+            <header><img id="IASMEimage" src="IASME.png" alt="IASME Logo"/></header>
+            <h2>Quickly and easily create, mark and update assessments</h2>
+            <form action="index.php" method="post">
+                <div class="options">
+                    <!-- ref or live portal changes -->
+                    <div id="Ref_Live" class="radio inputs" name="Ref_Live">Portal:<br>
+                        <input type="radio" id="Live" name="PortalChoice" value="portal.iasme.co.uk" checked>
+                        <label for="Live">Live</label>
+                        <input type="radio" id="Ref" name="PortalChoice" value="ref-portal.iasme.co.uk">
+                        <label for="Ref">Ref</label>
+                    </div>
+                    <div id="APIkey" class="text inputs" style="display:block">
+                        <label for="API_in">API Key: </label>
+                        <input type="text" id="API_in" name="API_in" required>
+                    </div>
+                <!-- job entry options -->
+                    <div id="JobSelect" name="JobSelect" class="dropdown inputs">
+                        <label for="API_Job">Select Your Job:</label>
+                        <!-- selection makes further fields visible if needed -->
+                        <select name="API_Job" id="API_Job" onchange="toggleBoxes()" href="javascript:void(0)">
+                            <option value="contributor_create">Create A Contributor</option>
+                            <!--<option value="contributor_update">Update A Contributor</option>-->
+                            <option value="contributor_move">Move A Contributor</option>
+                            <option value="question_list">See Questions For A Standard</option>
+                            <option value="answer_get">See Answers Submitted By Applicant</option>
+                            <option value="answer_update">Auto-Fill And Marking</option>
+                            <option value="report_get_location">Find Location Of A Report</option>
+                            <option value="report_get">Download A Report</option>
+                            <option value="standard_list">See Available Standards For User</option>
+                            <option value="submit_trigger">Submit Applicant For Marking</option>
+                        </select>
+                    </div>
+                    <!-- Report location entry -->
+                    <div id="Report" class="text inputs" style="display: none;">
+                        <label for="Report_in">Report Location: </label>
+                        <input type="text" id="Report_in" name="Report_in">
+                    </div>
+                    <!-- Org ID entry -->
+                    <div id="orgs" class="dropdown inputs">
+                        <label for="defaultOrgs">Default Orgs: </label>
+                        <select name="defaultOrgs" id="defaultOrgs">
+                            <option value="a9a9472f8266ebae155d65058973654e750798b4b1158a7c195b15ff073af162">Demo CB</option>
+                            <option value="82129b89ca4645f5362a8c628a7de0b68377633d8c0c8e9b591c53f59195daf6">Pervade Test CB</option>
+                            <option value="209b410d3f553d874d1404029fb2d0b138cb6931c501562b65eae93a835be9b3">Example CB</option>
+                        </select><br>
+                        <button type="button" onclick="openOrgNum()">Non-Standard Org</button>
+                    </div>
+
+                    <div id="NonStdOrg" style="display: none;" class="textbox inputs">
+                        <label for="Org_in">Org. ID: </label>
+                        <input type="text" id="Org_in" name="Org_in"><br>
+                        <button type="button" onclick="openOrgNum()">Standard Org</button>
+                    </div>
+                    <script>
+                        const WhichPortal = document.getElementById("Ref_Live").value
+                        const Live_div = document.getElementById("org_live")
+                        const Ref_div = document.getElementById("org_ref")
+                        if(WhichPortal == "Ref") {
+                            Live_div.style.display = "block";
+                            Ref_div.style.display = "none";
+                        }
+                        else {
+                            Live_div.style.display = "none";
+                            Ref_div.style.display = "block";
+                        }
+                    </script>
+                    <!-- input field for existing applicant -->
+                    <div id="ExistingApplicantEmail" style="display:none;" class="textbox inputs">
+                        <label for="ExistingEmail_in">Applicant Email: </label>
+                        <input id="ExistingEmail_in" name="ExistingEmail_in" type="text">
+                    </div>
+                    <!-- Entry for new Email -->
+                    <div id="NewEmail" style="display:block;" class="textbox inputs">
+                        <label for="NewEmail_in">Applicant Email: </label>
+                        <input type="text" name="NewEmail_in" id="NewEmail_in">
+                    </div>
+                    <!-- Entry for new applicant name -->
+                    <div id="NewName" style="display: block;" class="textbox inputs">
+                        <label for="Name_in">Applicant Name: </label>
+                        <input type="text" name="Name_in" id="Name_in">
+                    </div>
+                    <!-- Entry for org Size -->
+                    <div id="OrgSize" style="display: block;" class="radio inputs">
+                        <input type="radio" id="Micro" name="OrgSize_in" value="MICRO" checked>
+                        <label for="Micro">Micro (0-9)</label>
+                        <input type="radio" id="Small" name="OrgSize_in" value="SMALL">
+                        <label for="Small">Small (10-49)</label>
+                        <input type="radio" id="Medium" name="OrgSize_in" value="MEDIUM">
+                        <label for="Medium">Medium (50-249)</label>
+                        <input type="radio" id="Large" name="OrgSize_in" value="LARGE">
+                        <label for="Large">Large (250+)</label>
+                    </div>
+                    <!-- Question search entry -->
+                    <div id="QuestionId" class="inputs textbox" style="display: none;">
+                        <label for="Question_in">Question ID:</label>
+                        <input type="text" name="Question_in" id="Question_in">
+                    </div>
+                    <!-- Entry for standard -->
+                    <div id="Standards" style="display:block" class="dropdown inputs">
+                        <label for="Standard_in">Standard: </label>
+                        <select name="Standard_list" id="Standard_list">
+                            <option value="cfbfadb38e84a32d8171a1d65899b71de332af321b3ef74b24a71de924372e34">CE Montpellier</option>
+                            <option value="538ae6e7ecb6bf32b489282299ef3a51acc1dc4d82f8aa288acb8b425a6116fd">CE+ Montpellier</option>
+                            <option value="8c49c55ddada645f9c3720dc6ac4da32f0751f3af3f406327d635b9838428943">CE Evendine</option>
+                            <option value="bb2de0d3b341c2d2a67eddcac694c431160038e3c43dbd63ec77c487a6303e49">CE+ Evendine</option>
+                        </select>
+                    </div>
+                    <!-- Entry for new standard -->
+                    <div id="new_Std" name="new_Std" style="display:none" class="dropdown inputs">
+                        <label for="NewStandard_in">New Standard: </label>
+                        <select name="NewStandard_list" id="NewStandard_list">
+                            <option value="cfbfadb38e84a32d8171a1d65899b71de332af321b3ef74b24a71de924372e34">CE Montpellier</option>
+                            <option value="538ae6e7ecb6bf32b489282299ef3a51acc1dc4d82f8aa288acb8b425a6116fd">CE+ Montpellier</option>
+                            <option value="8c49c55ddada645f9c3720dc6ac4da32f0751f3af3f406327d635b9838428943">CE Evendine</option>
+                            <option value="bb2de0d3b341c2d2a67eddcac694c431160038e3c43dbd63ec77c487a6303e49">CE+ Evendine</option>
+                        </select>
+                    </div>
+                    <!-- Setting marking outcome -->
+                    <div id="outcome" style="display:none" class="radio inputs" name="outcome">
+                        <p>Desired Marking Outcome: </p>
+                        <input type="radio" id="outcome_pass" name="outcome_in" value="pass" checked>
+                        <label for="outcome_pass">Pass</label><br>
+                        <input type="radio" id="outcome_fail" name="outcome_in" value="fail">
+                        <label for="outcome_fail">Fail</label><br>
+                        <input type="radio" id="outcome_MoreInfo" name="outcome_in" value="info">
+                        <label for="outcome_MoreInfo">More Info</label><br>
+                        <input type="radio" id="Training1" name="outcome_in" value="Training1">
+                        <label for="Training1">Training 1</label><br>
+                        <input type="radio" id="Training2" name="outcome_in" value="Training2">
+                        <label for="Training2">Training 2</label><br>
+                        <input type="radio" id="Training3" name="outcome_in" value="Training3">
+                        <label for="Training3">Training 3</label>
+                    </div>
+                    <div id="ValidationDetails" class="text inputs" style="display: none;">Validator Details: <br>
+                        <label for="NameValid_in">Name: </label>
+                        <input type="text" id="NameValid_in" name="NameValid_in"><br>
+                        <label for="titleValid_in">Title: </label>
+                        <input type="text" id="titleValid_in" name="titleValid_in"><br>
+                        <label for="EmailValid_in">Email: </label>
+                        <input type="text" id="EmailValid_in" name="EmailValid_in">
+                    </div>
+                    <input id="SubmitButton" name="SubmitButton" type="submit">
+                    <script>
+                        function toggleBoxes()
+                        {
+                            const jobValue = document.getElementById("API_Job").value;
+                            const ExEmail_div = document.getElementById("ExistingApplicantEmail");
+                            const StdBox_div = document.getElementById("Standards");
+                            const NewEmail_div = document.getElementById("NewEmail");
+                            const NewStdBox_div = document.getElementById("new_Std");
+                            const outcome_div = document.getElementById("outcome");
+                            const NewName_div = document.getElementById("NewName");
+                            const OrgSize_div = document.getElementById("OrgSize");
+                            const Report_div =  document.getElementById("Report");
+                            const org_div = document.getElementById("orgs");
+                            const ValidationDetails_div = document.getElementById("ValidationDetails");
+                            const QuestionID_div = document.getElementById("QuestionId");
+                            //setting box for existing email
+                            if(jobValue == "contributor_create" || jobValue == "question_list") {
+                                    ExEmail_div.style.display = "none";
+                                }
+                            else {
+                                    ExEmail_div.style.display = "block";
+                                }
+                            //setting box for new email
+                            if(jobValue == "contributor_create") {
+                                NewEmail_div.style.display = "block";
+                                NewName_div.style.display = "block";
+                                OrgSize_div.style.display = "block";
+                            }
+                            else {
+                                NewEmail_div.style.display = "none";
+                                NewName_div.style.display = "none";
+                                OrgSize_div.style.display = "none";
+                            }
+                            //setting box for existing standard drop down
+                            if(jobValue == "standard_list" || jobValue == "report_get") {
+                                StdBox_div.style.display = "none";
+                            }
+                            else {
+                                StdBox_div.style.display = "block";
+                            }
+                            if(jobValue == "contributor_move") {
+                                NewStdBox_div.style.display = "block";
+                            }
+                            else {
+                                NewStdBox_div.style.display = "none";
+                            }
+                            if(jobValue == "answer_update") {
+                                outcome_div.style.display = "block";
+                            }
+                            else {
+                                outcome_div.style.display = "none";
+                            }
+                            if(jobValue == "report_get") {
+                                Report_div.style.display = "block";
+                            }
+                            else {
+                                Report_div.style.display = "none";
+                            }
+                            if(jobValue == "report_get" || jobValue == "question_list") {
+                                org_div.style.display = "none";
+                            }
+                            else {
+                                org_div.style.display = "block";
+                            }
+                            if(jobValue == "submit_trigger") {
+                                ValidationDetails_div.style.display = "block";
+                            }
+                            else {
+                                ValidationDetails_div.style.display = "none";
+                            }
+                            if(jobValue == "answer_get"){
+                                QuestionID_div.style.display = "block";
+                            }
+                            else{
+                                QuestionID_div.style.display = "none";
+                            }
+                        }
+                        function openOrgNum()
+                        {
+                            const openOrg_div = document.getElementById("NonStdOrg");
+                            const RegOrg_div = document.getElementById("orgs")
+                            if(openOrg_div.style.display == "none") {
+                                openOrg_div.style.display = "block";
+                                RegOrg_div.style.display = "none";
+                            }
+                            else {
+                                openOrg_div.style.display = "none";
+                                RegOrg_div.style.display = "block";
+                            }
+                        }
+                    </script>
+                </div>
+            </form>
+    </body>
+</html>
